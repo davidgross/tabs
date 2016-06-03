@@ -12,6 +12,10 @@ class TabView extends HTMLElement
 
     if ['TextEditor', 'TestView'].indexOf(item.constructor.name) > -1
       @classList.add('texteditor')
+
+    if 'MarkdownPreviewView'.indexOf(item.constructor.name) > -1
+      @classList.add('tab-markdown-preview')
+    
     @classList.add('tab', 'sortable')
 
     @itemTitle = document.createElement('div')

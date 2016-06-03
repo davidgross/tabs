@@ -27,6 +27,7 @@ class TabBarView extends HTMLElement
         event.stopPropagation()
         @closeAllTabs()
       'tabs:open-in-new-window': => @openInNewWindow()
+      'tabs:open-preview-in-new-window': => @openPreviewInNewWindow()
 
     addElementCommands = (commands) =>
       commandsWithPropagationStopped = {}
@@ -164,6 +165,22 @@ class TabBarView extends HTMLElement
     return unless itemURI?
     @closeTab(tab)
     pathsToOpen = [atom.project.getPaths(), itemURI].reduce ((a, b) -> a.concat(b)), []
+    atom.open({pathsToOpen: pathsToOpen, newWindow: true, devMode: atom.devMode, safeMode: atom.safeMode})
+
+  openPreviewInNewWindow: (tab) ->
+    tab ?= @querySelector('.right-clicked')
+    item = tab?.item
+    return unless item?
+    if typeof item.getURI is 'function'
+      itemURI = item.getURI()
+    else if typeof item.getPath is 'function'
+      itemURI = item.getPath()
+    else if typeof item.getUri is 'function'
+      itemURI = item.getUri()
+    return unless itemURI?
+    alert(itemURI)
+    @closeTab(tab)
+    pathsToOpen = itemURI #[atom.project.getPaths(), itemURI].reduce ((a, b) -> a.concat(b)), []
     atom.open({pathsToOpen: pathsToOpen, newWindow: true, devMode: atom.devMode, safeMode: atom.safeMode})
 
   splitTab: (fn) ->

@@ -29,6 +29,11 @@ menu: [
     {label: 'Open In New Window', command: 'tabs:open-in-new-window'}
     {type: 'separator'}
   ]
+  '.tab.tab-markdown-preview': [
+    {type: 'separator'}
+    {label: 'Open Preveiw In New Window', command: 'tabs:open-preview-in-new-window'}
+    {type: 'separator'}
+  ]
   '.tab.pending-tab': [
     {label: 'Keep Pending Tab', command: 'tabs:keep-pending-tab'}
   ]
